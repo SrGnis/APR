@@ -1,4 +1,4 @@
-function [trazap,trazav,trazad] = gradientDescent(point, K, max_iter)
+function [trazap,trazav,trazad, i] = gradientDescentEpsilon(point, K, max_iter, epsilon)
   
   for i = 1:max_iter
     # Insertamos en la traza el punto y el valor de ese punto
@@ -11,4 +11,8 @@ function [trazap,trazav,trazad] = gradientDescent(point, K, max_iter)
     trazad(i,:) = d;
     # Realizamos el descenso por gradiente
     point = point - (K/i)*d;
+    dif = norm(trazap(:,i)' - point, 2);
+    if(epsilon > dif)
+      break;
+    endif
   endfor
